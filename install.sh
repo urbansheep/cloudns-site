@@ -1,8 +1,8 @@
 #!/bin/sh
 set -eu
 
-PACKAGE="${CLOUDNS_TOOLS_PACKAGE:-cloudns-tools}"
-FALLBACK_PACKAGE="${CLOUDNS_TOOLS_FALLBACK_PACKAGE:-github:urbansheep/cloudns-tools}"
+PACKAGE="${CLOUDNS_TOOLS_PACKAGE:-github:urbansheep/cloudns-tools}"
+FALLBACK_PACKAGE="${CLOUDNS_TOOLS_FALLBACK_PACKAGE:-cloudns-tools}"
 
 if ! command -v npm >/dev/null 2>&1; then
   printf '%s\n' "npm is required. Install Node.js 20+ first: https://nodejs.org/"
