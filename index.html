@@ -874,7 +874,13 @@
         .hero-inner,
         .demo-inner,
         .doctor-inner {
-          grid-template-columns: 1fr;
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .hero-inner > *,
+        .demo-inner > *,
+        .doctor-inner > * {
+          min-width: 0;
         }
 
         .features-grid {
@@ -897,7 +903,7 @@
 
         .stats-inner,
         .features-grid {
-          grid-template-columns: 1fr;
+          grid-template-columns: minmax(0, 1fr);
         }
 
         .footer-inner {
