@@ -20,7 +20,6 @@
         --color-panel: #161616;
         --color-panel-2: #1e1e1e;
         --color-line: rgba(255, 255, 255, 0.07);
-        --color-line-strong: rgba(255, 105, 33, 0.24);
         --color-text: #ffffff;
         --color-muted: #bcbcbc;
         --color-dim: rgba(255, 255, 255, 0.3);
@@ -284,6 +283,7 @@
         padding: 11px 25px;
         font-size: 15px;
         text-decoration: none;
+        transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
       }
 
       .btn-primary {
@@ -1426,10 +1426,12 @@
         let raf;
         const particles = [];
 
+        let cachedRect = { width: 0, height: 0 };
+
         const resize = () => {
-          const rect = canvas.getBoundingClientRect();
-          canvas.width = Math.max(1, Math.floor(rect.width * window.devicePixelRatio));
-          canvas.height = Math.max(1, Math.floor(rect.height * window.devicePixelRatio));
+          cachedRect = canvas.getBoundingClientRect();
+          canvas.width = Math.max(1, Math.floor(cachedRect.width * window.devicePixelRatio));
+          canvas.height = Math.max(1, Math.floor(cachedRect.height * window.devicePixelRatio));
           ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
         };
 
@@ -1445,20 +1447,18 @@
         };
 
         resize();
-        const rect = canvas.getBoundingClientRect();
         for (let i = 0; i < 38; i += 1) {
           const p = {};
-          resetParticle(p, rect);
+          resetParticle(p, cachedRect);
           p.life = Math.random() * p.maxLife;
           particles.push(p);
         }
 
         const tick = () => {
-          const bounds = canvas.getBoundingClientRect();
-          ctx.clearRect(0, 0, bounds.width, bounds.height);
+          ctx.clearRect(0, 0, cachedRect.width, cachedRect.height);
           particles.forEach((p) => {
             p.life += 1;
-            if (p.life > p.maxLife || p.y < -20) resetParticle(p, bounds);
+            if (p.life > p.maxLife || p.y < -20) resetParticle(p, cachedRect);
             p.y -= p.speed;
             p.x += p.drift;
             const progress = p.life / p.maxLife;

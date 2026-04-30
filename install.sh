@@ -14,6 +14,6 @@ if npm install -g "$PACKAGE"; then
   exit 0
 fi
 
-printf '%s\n' "npm package install failed; trying GitHub source package..."
+printf '%s\n' "npm package install failed; trying npm registry fallback..."
 npm install -g "$FALLBACK_PACKAGE"
 cloudns auth check || true
