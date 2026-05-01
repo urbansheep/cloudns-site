@@ -1212,7 +1212,7 @@
                   <span class="demo-tab-icon" aria-hidden="true">P</span>
                   <span class="demo-tab-text">
                     <span class="demo-tab-name">Presets</span>
-                    <span class="demo-tab-hint">Diff and apply provider templates.</span>
+                    <span class="demo-tab-hint">Diff, apply, and remove provider templates.</span>
                   </span>
                 </button>
                 <button class="demo-tab" type="button" data-demo="backup" role="tab" aria-selected="false">
@@ -1335,7 +1335,10 @@
             ["val", "  - A - www - 203.0.113.42 - ttl 3600"],
             ["blank", ""],
             ["cmd", "cloudns record add example.com -T A -N api -V 203.0.113.55 -f json"],
-            ["ok", '{"action":"record add","status":"ok","recordsAffected":1}']
+            ["ok", '{"action":"record add","status":"ok","recordsAffected":1}'],
+            ["blank", ""],
+            ["cmd", "cloudns record rm example.com --type A --name api --value 203.0.113.55 -y -n"],
+            ["ok", "skipped record rm - 1 records affected - dry-run"]
           ]
         },
         presets: {
@@ -1349,7 +1352,10 @@
             ["val", "  - TXT - @ - v=spf1 include:spf.messagingengine.com ?all"],
             ["blank", ""],
             ["cmd", "cloudns preset apply example.com fastmail -n"],
-            ["ok", "skipped preset apply - 3 changes - dry-run"]
+            ["ok", "skipped preset apply - 3 changes - dry-run"],
+            ["blank", ""],
+            ["cmd", "cloudns preset remove example.com fastmail -y -n"],
+            ["ok", "skipped preset remove - 3 changes - dry-run"]
           ]
         },
         backup: {
